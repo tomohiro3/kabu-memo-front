@@ -1,0 +1,1 @@
+When the vscode's extension: eslint supports v8, upgrade its npm package version to 8.4.1
