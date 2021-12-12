@@ -13,7 +13,14 @@
     }
   },
   "plugins": ["react", "react-hooks", "jsx-a11y"],
-  "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:jsx-a11y/strict", "prettier", "plugin:import/recommended", "plugin:import/warnings"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:jsx-a11y/strict",
+    "prettier",
+    "plugin:import/recommended",
+    "plugin:import/warnings"
+  ],
   "rules": {
     "no-restricted-globals": 0,
     "react/prop-types": 0,
