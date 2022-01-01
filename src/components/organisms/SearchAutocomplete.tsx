@@ -1,4 +1,5 @@
 import SearchIcon from '@mui/icons-material/Search';
+import Autocomplete from '@mui/material/Autocomplete';
 import InputBase from '@mui/material/InputBase';
 import { styled, alpha } from '@mui/material/styles';
 
@@ -35,7 +36,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      width: '12ch',
+      width: '20ch',
       '&:focus': {
         width: '20ch',
       },
@@ -43,24 +44,21 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function SearchField() {
+// TODO
+// It's very slow to display all of options. Need to virtualize them. Probably with react-window.
+export default function SearchAutocomplete(props: any) {
   return (
     <>
       <Search>
         <SearchIconWrapper>
           <SearchIcon />
         </SearchIconWrapper>
-        <StyledInputBase
-          placeholder="Search…"
-          inputProps={{ 'aria-label': 'search' }}
-          onClick={async () => {
-            try {
-              const res = await fetch('http://localhost:5000/stock');
-              const res2 = await res.json();
-              console.log(res2);
-            } catch (e) {
-              console.log(e);
-            }
+        <Autocomplete
+          options={props.initialData.flatMap((el: any) => [el.code.toString(), el.name])}
+          getOptionLabel={(option: string) => option}
+          renderInput={(params) => {
+            const { InputProps, InputLabelProps, ...rest } = params;
+            return <StyledInputBase placeholder="銘柄コード・名" {...InputProps} endAdornment={null} {...rest} />;
           }}
         />
       </Search>
