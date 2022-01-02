@@ -10,13 +10,26 @@ type CustomAppProps = AppProps & {
 const initialState = {
   code: '',
   name: '',
-  market: '',
+  markets: [],
+  industries: [],
+  valueOrGrowth: null,
+  isPriceShiftable: null,
 };
 
 function reducer(state: any, action: any) {
   switch (action.type) {
-    case 'SET_FILTER':
-      return { ...state, [action.payload.key]: action.payload.value };
+    case 'SET_MARKET':
+      return { ...state, markets: [...state.markets, action.payload] };
+    case 'DELETE_MARKET':
+      return { ...state, markets: state.markets.filter((market: string) => market !== action.payload) };
+    case 'SET_INDUSTRY':
+      return { ...state, industries: [...state.industries, action.payload] };
+    case 'DELETE_INDUSTRY':
+      return { ...state, industries: state.industries.filter((industry: string) => industry !== action.payload) };
+    case 'SET_VALUEORGROWTH':
+      return { ...state, valueOrGrowth: state.valueOrGrowth === action.paylaod ? null : action.payload };
+    case 'SET_IS_PRICESHIFTABLE':
+      return { ...state, valueOrGrowth: state.valueOrGrowth === action.paylaod ? null : action.payload };
     default:
       return state;
   }
@@ -24,6 +37,7 @@ function reducer(state: any, action: any) {
 
 function CustomApp({ Component, pageProps, data }: CustomAppProps) {
   const [state, dispatch] = useReducer(reducer, initialState);
+  console.log(state);
   return (
     <Layout initialData={data} dispatch={dispatch}>
       <Component initialData={data} initialState={state} {...pageProps} />

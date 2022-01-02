@@ -1,5 +1,4 @@
 import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
 import type { NextPage } from 'next';
 import StockCard from '../components/organisms/StockCard';
 

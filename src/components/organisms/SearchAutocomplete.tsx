@@ -54,11 +54,11 @@ export default function SearchAutocomplete(props: any) {
           <SearchIcon />
         </SearchIconWrapper>
         <Autocomplete
-          options={props.initialData.flatMap((el: any) => [el.code.toString(), el.name])}
-          getOptionLabel={(option: string) => option}
+          options={props.initialData}
+          getOptionLabel={(option: any) => `${option.name} (${option.code})`}
           renderInput={(params) => {
             const { InputProps, InputLabelProps, ...rest } = params;
-            return <StyledInputBase placeholder="銘柄コード・名" {...InputProps} endAdornment={null} {...rest} />;
+            return <StyledInputBase placeholder="銘柄名 (銘柄コード)" {...InputProps} endAdornment={null} {...rest} />;
           }}
         />
       </Search>

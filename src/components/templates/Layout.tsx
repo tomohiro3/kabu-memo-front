@@ -1,3 +1,4 @@
+import { urlToHttpOptions } from 'url';
 import MailIcon from '@mui/icons-material/Mail';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import Box from '@mui/material/Box';
@@ -10,65 +11,15 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import Toolbar from '@mui/material/Toolbar';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
 import { useState } from 'react';
 
+import { MARKETS, INDUSTRY_33, VALUE_OR_GROWTH, IS_PRICE_SHIFTABLE } from '../../constants/seacrh-filters';
 import SearchAutocomplete from '../organisms/SearchAutocomplete';
 import PlainAccordion from '../primitives/Accordion';
 
 const drawerWidth = 240;
-const filters = [
-  {
-    name: '市場',
-    values: ['東1', '東2', '東マ', 'JQ'],
-  },
-  {
-    name: '33業種',
-    values: [
-      '水産農林業',
-      '鉱業',
-      '建設業',
-      '食料品',
-      '繊維製品',
-      'パルプ紙',
-      '化学',
-      '医薬品',
-      '石油石炭製品',
-      'ゴム製品',
-      'ガラス土石製品',
-      '鉄鋼',
-      '非鉄金属',
-      '金属製品',
-      '機械',
-      '電気機器',
-      '輸送用機器',
-      '精密機器',
-      'その他製品',
-      '電気ガス業',
-      '陸運業',
-      '海運業',
-      '空運業',
-      '倉庫運輸関連業',
-      '情報通信業',
-      '卸売業',
-      '小売業',
-      '銀行業',
-      '証券商品先物取引',
-      '保険業',
-      'その他金融業',
-      '不動産業',
-      'サービス業',
-    ],
-  },
-  {
-    name: 'バリュー・グロース',
-    values: ['バリュー', 'グロース'],
-  },
-  {
-    name: '価格転嫁',
-    values: ['良', '悪'],
-  },
-];
 
 function ResponsiveDrawer(props: any) {
   const { window } = props;
@@ -85,30 +36,106 @@ function ResponsiveDrawer(props: any) {
       </List>
       <Divider />
       <List>
-        {filters.map((filterItem) => (
-          <ListItem key={filterItem.name}>
-            <PlainAccordion name={filterItem.name}>
-              <FormGroup>
-                {filterItem.values.map((value) => (
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        onChange={(event) =>
-                          props.dispatch({
-                            type: 'SET_FILTER',
-                            payload: { key: filterItem.name, value: event.target.checked ? value : '' },
-                          })
-                        }
-                      />
-                    }
-                    label={value}
-                    key={value}
-                  />
-                ))}
-              </FormGroup>
-            </PlainAccordion>
-          </ListItem>
-        ))}
+        <ListItem>
+          <PlainAccordion name={MARKETS.name}>
+            <FormGroup>
+              {MARKETS.options.map((market) => (
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      onChange={(event) =>
+                        event.target.checked
+                          ? props.dispatch({
+                              type: 'SET_MARKET',
+                              payload: market,
+                            })
+                          : props.dispatch({
+                              type: 'DELETE_MARKET',
+                              payload: market,
+                            })
+                      }
+                    />
+                  }
+                  label={market}
+                  key={market}
+                />
+              ))}
+            </FormGroup>
+          </PlainAccordion>
+        </ListItem>
+        <ListItem>
+          <PlainAccordion name={INDUSTRY_33.name}>
+            <FormGroup>
+              {INDUSTRY_33.options.map((industry) => (
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      onChange={(event) =>
+                        event.target.checked
+                          ? props.dispatch({
+                              type: 'SET_INDUSTRY',
+                              payload: industry,
+                            })
+                          : props.dispatch({
+                              type: 'DELETE_INDUSTRY',
+                              payload: industry,
+                            })
+                      }
+                    />
+                  }
+                  label={industry}
+                  key={industry}
+                />
+              ))}
+            </FormGroup>
+          </PlainAccordion>
+        </ListItem>
+        <ListItem>
+          <PlainAccordion name={VALUE_OR_GROWTH.name}>
+            <RadioGroup defaultValue="None">
+              {VALUE_OR_GROWTH.options.map((option) => (
+                <FormControlLabel
+                  control={
+                    <Radio
+                      onChange={() => {
+                        props.dispatch({
+                          type: 'SET_VALUEORGROWTH',
+                          payload: option.value,
+                        });
+                      }}
+                    />
+                  }
+                  label={option.label}
+                  value={option.label}
+                  key={option.label}
+                />
+              ))}
+            </RadioGroup>
+          </PlainAccordion>
+        </ListItem>
+        <ListItem>
+          <PlainAccordion name={IS_PRICE_SHIFTABLE.name}>
+            <RadioGroup defaultValue="None">
+              {IS_PRICE_SHIFTABLE.options.map((option) => (
+                <FormControlLabel
+                  control={
+                    <Radio
+                      onChange={() => {
+                        props.dispatch({
+                          type: 'SET_IS_PRICESHIFTABLE',
+                          payload: option.value,
+                        });
+                      }}
+                    />
+                  }
+                  label={option.label}
+                  value={option.label}
+                  key={option.label}
+                />
+              ))}
+            </RadioGroup>
+          </PlainAccordion>
+        </ListItem>
       </List>
       <Divider />
       <List>
