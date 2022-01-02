@@ -90,7 +90,20 @@ function ResponsiveDrawer(props: any) {
             <PlainAccordion name={filterItem.name}>
               <FormGroup>
                 {filterItem.values.map((value) => (
-                  <FormControlLabel control={<Checkbox />} label={value} key={value} />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        onChange={(event) =>
+                          props.dispatch({
+                            type: 'SET_FILTER',
+                            payload: { key: filterItem.name, value: event.target.checked ? value : '' },
+                          })
+                        }
+                      />
+                    }
+                    label={value}
+                    key={value}
+                  />
                 ))}
               </FormGroup>
             </PlainAccordion>
