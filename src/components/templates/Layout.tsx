@@ -32,7 +32,12 @@ function ResponsiveDrawer(props: any) {
   const drawer = (
     <div>
       <List>
-        <SearchAutocomplete initialData={props.initialData} />
+        <SearchAutocomplete
+          initiallyFetchedData={props.initiallyFetchedData}
+          setStockCodeName={(name: string, code: string) =>
+            props.dispatch({ type: 'SET_STOCK_CODE_NAME', payload: { name, code } })
+          }
+        />
       </List>
       <Divider />
       <List>

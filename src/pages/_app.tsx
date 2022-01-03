@@ -18,6 +18,8 @@ const initialState = {
 
 function reducer(state: any, action: any) {
   switch (action.type) {
+    case 'SET_STOCK_CODE_NAME':
+      return { ...state, code: action.payload.code, name: action.payload.name };
     case 'SET_MARKET':
       return { ...state, markets: [...state.markets, action.payload] };
     case 'DELETE_MARKET':
@@ -37,10 +39,9 @@ function reducer(state: any, action: any) {
 
 function CustomApp({ Component, pageProps, data }: CustomAppProps) {
   const [state, dispatch] = useReducer(reducer, initialState);
-  console.log(state);
   return (
-    <Layout initialData={data} dispatch={dispatch}>
-      <Component initialData={data} initialState={state} {...pageProps} />
+    <Layout initiallyFetchedData={data} dispatch={dispatch}>
+      <Component initiallyFetchedData={data} searchFilters={state} {...pageProps} />
     </Layout>
   );
 }
