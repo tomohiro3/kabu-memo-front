@@ -1,4 +1,3 @@
-import { urlToHttpOptions } from 'url';
 import MailIcon from '@mui/icons-material/Mail';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import Box from '@mui/material/Box';
@@ -15,7 +14,7 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import { useState } from 'react';
 
-import { MARKETS, INDUSTRY_33, VALUE_OR_GROWTH, IS_PRICE_SHIFTABLE } from '../../constants/seacrh-filters';
+import { MARKETS, INDUSTRY_33, VALUE_OR_GROWTH, IS_PRICE_SHIFTABLE, GROUPS } from '../../constants/seacrh-filters';
 import SearchAutocomplete from '../organisms/SearchAutocomplete';
 import PlainAccordion from '../primitives/Accordion';
 
@@ -63,6 +62,33 @@ function ResponsiveDrawer(props: any) {
                   }
                   label={market}
                   key={market}
+                />
+              ))}
+            </FormGroup>
+          </PlainAccordion>
+        </ListItem>
+        <ListItem>
+          <PlainAccordion name={GROUPS.name}>
+            <FormGroup>
+              {GROUPS.options.map((group) => (
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      onChange={(event) =>
+                        event.target.checked
+                          ? props.dispatch({
+                              type: 'SET_GROUP',
+                              payload: group,
+                            })
+                          : props.dispatch({
+                              type: 'DELETE_GROUP',
+                              payload: group,
+                            })
+                      }
+                    />
+                  }
+                  label={group}
+                  key={group}
                 />
               ))}
             </FormGroup>
@@ -186,7 +212,7 @@ function ResponsiveDrawer(props: any) {
           {drawer}
         </Drawer>
       </Box>
-      <Box component="main" sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}>
+      <Box mt={4} component="main" sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}>
         {props.children}
       </Box>
     </Box>

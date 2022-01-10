@@ -1,4 +1,8 @@
 export const MARKETS = { name: '市場', options: ['東1', '東2', '東マ', 'JQ'] };
+export const GROUPS = {
+  name: '規模区分',
+  options: ['TOPIX Core30', 'TOPIX Large70', 'TOPIX Mid400', 'TOPIX Small 1', 'TOPIX Small 2'],
+};
 export const INDUSTRY_33 = {
   name: '33業種',
   options: [

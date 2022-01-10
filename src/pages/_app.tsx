@@ -11,6 +11,7 @@ const initialState = {
   code: '',
   name: '',
   markets: [],
+  groups: [],
   industries: [],
   valueOrGrowth: null,
   isPriceShiftable: null,
@@ -24,6 +25,10 @@ function reducer(state: any, action: any) {
       return { ...state, markets: [...state.markets, action.payload] };
     case 'DELETE_MARKET':
       return { ...state, markets: state.markets.filter((market: string) => market !== action.payload) };
+    case 'SET_GROUP':
+      return { ...state, groups: [...state.groups, action.payload] };
+    case 'DELETE_GROUP':
+      return { ...state, groups: state.groups.filter((group: string) => group !== action.payload) };
     case 'SET_INDUSTRY':
       return { ...state, industries: [...state.industries, action.payload] };
     case 'DELETE_INDUSTRY':
