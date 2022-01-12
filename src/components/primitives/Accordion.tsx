@@ -4,7 +4,6 @@ import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
-import * as React from 'react';
 
 const Accordion = styled((props: any) => <MuiAccordion disableGutters elevation={0} {...props} />)(() => ({
   width: '100%',

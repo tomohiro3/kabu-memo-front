@@ -14,7 +14,17 @@ const initialState = {
   groups: [],
   industries: [],
   valueOrGrowth: null,
-  isPriceShiftable: null,
+  isProductPriceShiftable: null,
+  parentCompany: null,
+  groupCompany: null,
+  shareHolders: [],
+  customers: [],
+  partnerCompanies: [],
+  investingCompanies: [],
+  themes: [],
+  productCategories: [],
+  productUsecases: [],
+  // free_notes:
 };
 
 function reducer(state: any, action: any) {
@@ -54,6 +64,7 @@ function CustomApp({ Component, pageProps, data }: CustomAppProps) {
 CustomApp.getInitialProps = async () => {
   const res = await fetch('http://localhost:5000/stocks');
   const json = await res.json();
+
   return { data: json.res };
 };
 

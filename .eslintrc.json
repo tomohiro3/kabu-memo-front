@@ -25,6 +25,7 @@
           "order": "asc"
         }
       }
-    ]
+    ],
+    "@typescript-eslint/no-explicit-any": 0
   }
 }

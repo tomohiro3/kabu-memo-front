@@ -2,6 +2,7 @@ import Grid from '@mui/material/Grid';
 import type { NextPage } from 'next';
 import StockCard from '../components/organisms/StockCard';
 import { Dict } from '../types/lib';
+import { hasDuplicateElement } from '../utils/lib/array-lib';
 
 type Props = {
   searchFilters: {
@@ -11,14 +12,14 @@ type Props = {
     groups: string[];
     industries: string[];
     valueOrGrowth: null | 'バリュー' | 'グロース';
-    isPriceShiftable: null | boolean;
+    isProductPriceShiftable: null | boolean;
     parentCompany: string | null;
     groupCompany: string | null;
     shareHolders: string[];
     customers: string[];
     partnerCompanies: string[];
     investingCompanies: string[];
-    theme: string[];
+    themes: string[];
     productCategories: string[];
     productUsecases: string[];
     freeNotes: Dict[];
@@ -32,17 +33,13 @@ const Home: NextPage<Props> = (props) => {
     let isMarketMatched = true;
     let isIndustryMathced = true;
     let isGroupMathced = true;
-    let isValueOrGrowthMatched = true;
-    let isPriceShiftableMatched = true;
-    let isParentCompanyMatched = true;
-    let isGroupCompanyMatched = true;
-    const isShareHoldersMatched = true;
-    const isCustomersMatched = true;
-    const isPartnerCompaniesMatched = true;
-    const isInvestingCompaniesMatched = true;
-    const isThemeMatched = true;
-    const isProductCategoriesMatched = true;
-    const isProductUsecasesMatched = true;
+    let isShareHoldersMatched = true;
+    let isCustomersMatched = true;
+    let isPartnerCompaniesMatched = true;
+    let isInvestingCompaniesMatched = true;
+    let isThemesMatched = true;
+    let isProductCategoriesMatched = true;
+    let isProductUsecasesMatched = true;
     // let isFreeNoteKeyMatched = true;
 
     if (props.searchFilters.markets.length > 0) {
@@ -54,56 +51,58 @@ const Home: NextPage<Props> = (props) => {
     if (props.searchFilters.groups.length > 0) {
       isGroupMathced = props.searchFilters.groups.indexOf(initiallyFetchedStock.group) > -1;
     }
-    // ここから
-    // 検索フィルターもAPIからのレスポンスも両方配列なのでマッチに判定方法を変更する必要がある。
     if (props.searchFilters.shareHolders.length > 0) {
-      isMarketMatched = props.searchFilters.shareHolders.indexOf(initiallyFetchedStock.shareHolders) > -1;
+      isShareHoldersMatched = hasDuplicateElement(props.searchFilters.shareHolders, initiallyFetchedStock.shareHolders);
     }
     if (props.searchFilters.customers.length > 0) {
-      isIndustryMathced = props.searchFilters.customers.indexOf(initiallyFetchedStock.customers) > -1;
+      isCustomersMatched = hasDuplicateElement(props.searchFilters.customers, initiallyFetchedStock.customers);
     }
-    if (props.searchFilters.groups.length > 0) {
-      isGroupMathced = props.searchFilters.groups.indexOf(initiallyFetchedStock.group) > -1;
+    if (props.searchFilters.partnerCompanies.length > 0) {
+      isPartnerCompaniesMatched = hasDuplicateElement(
+        props.searchFilters.partnerCompanies,
+        initiallyFetchedStock.partnerCompanies
+      );
     }
-    if (props.searchFilters.markets.length > 0) {
-      isMarketMatched = props.searchFilters.markets.indexOf(initiallyFetchedStock.market) > -1;
+    if (props.searchFilters.investingCompanies.length > 0) {
+      isInvestingCompaniesMatched = hasDuplicateElement(
+        props.searchFilters.investingCompanies,
+        initiallyFetchedStock.investingCompanies
+      );
     }
-    if (props.searchFilters.industries.length > 0) {
-      isIndustryMathced = props.searchFilters.industries.indexOf(initiallyFetchedStock.industry_33) > -1;
+    if (props.searchFilters.themes.length > 0) {
+      isThemesMatched = hasDuplicateElement(props.searchFilters.themes, initiallyFetchedStock.themes);
     }
-    if (props.searchFilters.groups.length > 0) {
-      isGroupMathced = props.searchFilters.groups.indexOf(initiallyFetchedStock.group) > -1;
+    if (props.searchFilters.productCategories.length > 0) {
+      isProductCategoriesMatched = hasDuplicateElement(
+        props.searchFilters.productCategories,
+        initiallyFetchedStock.productCategories
+      );
     }
-    if (props.searchFilters.groups.length > 0) {
-      isGroupMathced = props.searchFilters.groups.indexOf(initiallyFetchedStock.group) > -1;
-    }
-    // ここ四つはフロントもバックも初期値nullなのでこの判定は不要？
-    // return内の判定もcode/nameとお同じ扱いにする？
-    // つまり上部のlet hoge = trueも不要？
-    if (initiallyFetchedStock.valueOrGrowth) {
-      isValueOrGrowthMatched = initiallyFetchedStock.valueOrGrowth == props.searchFilters.valueOrGrowth;
-    }
-    if (initiallyFetchedStock.isPriceShiftable) {
-      isPriceShiftableMatched = initiallyFetchedStock.isPriceShiftable == props.searchFilters.isPriceShiftable;
-    }
-    if (initiallyFetchedStock.valueOrGrowth) {
-      isParentCompanyMatched = initiallyFetchedStock.valueOrGrowth == props.searchFilters.parentCompany;
-    }
-    if (initiallyFetchedStock.isPriceShiftable) {
-      isGroupCompanyMatched = initiallyFetchedStock.isPriceShiftable == props.searchFilters.groupCompany;
+    if (props.searchFilters.productUsecases.length > 0) {
+      isProductUsecasesMatched = hasDuplicateElement(
+        props.searchFilters.productUsecases,
+        initiallyFetchedStock.productUsecases
+      );
     }
     return (
       // Need to stop finding when code or name is matched
       // Or make another iteration for it and prioritize it
       initiallyFetchedStock.code == props.searchFilters.code ||
       initiallyFetchedStock.name === props.searchFilters.name ||
+      initiallyFetchedStock.valueOrGrowth == props.searchFilters.valueOrGrowth ||
+      initiallyFetchedStock.isProductPriceShiftable === props.searchFilters.isProductPriceShiftable ||
+      initiallyFetchedStock.parentCompany == props.searchFilters.parentCompany ||
+      initiallyFetchedStock.groupCompany === props.searchFilters.groupCompany ||
       (isMarketMatched &&
         isIndustryMathced &&
         isGroupMathced &&
-        isValueOrGrowthMatched &&
-        isPriceShiftableMatched &&
-        isParentCompanyMatched &&
-        isGroupCompanyMatched)
+        isShareHoldersMatched &&
+        isCustomersMatched &&
+        isPartnerCompaniesMatched &&
+        isInvestingCompaniesMatched &&
+        isThemesMatched &&
+        isProductCategoriesMatched &&
+        isProductUsecasesMatched)
     );
   });
 
