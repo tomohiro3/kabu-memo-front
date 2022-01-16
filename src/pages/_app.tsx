@@ -2,12 +2,13 @@ import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { useReducer } from 'react';
 import Layout from '../components/templates/Layout';
+import { StocksApiResponse } from '../types/api';
 
 type CustomAppProps = AppProps & {
-  data: Array<{ [key: string]: any }>;
+  data: StocksApiResponse[];
 };
 
-const initialState = {
+const initialSearchFiltersState = {
   code: '',
   name: '',
   markets: [],
@@ -33,15 +34,15 @@ function reducer(state: any, action: any) {
       return { ...state, code: action.payload.code, name: action.payload.name };
     case 'SET_MARKET':
       return { ...state, markets: [...state.markets, action.payload] };
-    case 'DELETE_MARKET':
+    case 'REMOVE_MARKET':
       return { ...state, markets: state.markets.filter((market: string) => market !== action.payload) };
     case 'SET_GROUP':
       return { ...state, groups: [...state.groups, action.payload] };
-    case 'DELETE_GROUP':
+    case 'REMOVE_GROUP':
       return { ...state, groups: state.groups.filter((group: string) => group !== action.payload) };
     case 'SET_INDUSTRY':
       return { ...state, industries: [...state.industries, action.payload] };
-    case 'DELETE_INDUSTRY':
+    case 'REMOVE_INDUSTRY':
       return { ...state, industries: state.industries.filter((industry: string) => industry !== action.payload) };
     case 'SET_VALUEORGROWTH':
       return { ...state, valueOrGrowth: state.valueOrGrowth === action.paylaod ? null : action.payload };
@@ -53,7 +54,7 @@ function reducer(state: any, action: any) {
 }
 
 function CustomApp({ Component, pageProps, data }: CustomAppProps) {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialSearchFiltersState);
   return (
     <Layout initiallyFetchedData={data} dispatch={dispatch}>
       <Component initiallyFetchedData={data} searchFilters={state} {...pageProps} />

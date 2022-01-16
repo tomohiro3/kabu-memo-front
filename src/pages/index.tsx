@@ -1,6 +1,7 @@
 import Grid from '@mui/material/Grid';
 import type { NextPage } from 'next';
 import StockCard from '../components/organisms/StockCard';
+import { StocksApiResponse } from '../types/api';
 import { Dict } from '../types/lib';
 import { hasDuplicateElement } from '../utils/lib/array-lib';
 
@@ -24,12 +25,12 @@ type Props = {
     productUsecases: string[];
     freeNotes: Dict[];
   };
-  initiallyFetchedData: Dict;
+  initiallyFetchedData: StocksApiResponse[];
 };
 const Home: NextPage<Props> = (props) => {
   // todo
   // Need to optimize this find iteration
-  const matchedStocks = props.initiallyFetchedData.filter((initiallyFetchedStock: any) => {
+  const matchedStocks = props.initiallyFetchedData.filter((initiallyFetchedStock) => {
     let isMarketMatched = true;
     let isIndustryMathced = true;
     let isGroupMathced = true;
@@ -46,10 +47,12 @@ const Home: NextPage<Props> = (props) => {
       isMarketMatched = props.searchFilters.markets.indexOf(initiallyFetchedStock.market) > -1;
     }
     if (props.searchFilters.industries.length > 0) {
-      isIndustryMathced = props.searchFilters.industries.indexOf(initiallyFetchedStock.industry_33) > -1;
+      isIndustryMathced = props.searchFilters.industries.indexOf(initiallyFetchedStock.industry33) > -1;
     }
     if (props.searchFilters.groups.length > 0) {
-      isGroupMathced = props.searchFilters.groups.indexOf(initiallyFetchedStock.group) > -1;
+      isGroupMathced = initiallyFetchedStock.group
+        ? props.searchFilters.groups.indexOf(initiallyFetchedStock.group) > -1
+        : props.searchFilters.groups.indexOf('None') > -1;
     }
     if (props.searchFilters.shareHolders.length > 0) {
       isShareHoldersMatched = hasDuplicateElement(props.searchFilters.shareHolders, initiallyFetchedStock.shareHolders);
@@ -109,9 +112,9 @@ const Home: NextPage<Props> = (props) => {
   return (
     <>
       <Grid container spacing={2}>
-        {matchedStocks.map((data: any) => (
-          <Grid item key={data.name} xs={12} md={6} lg={4}>
-            <StockCard {...data} />
+        {matchedStocks.map((stock) => (
+          <Grid item key={stock.name} xs={12} md={6} lg={4}>
+            <StockCard {...stock} />
           </Grid>
         ))}
       </Grid>
