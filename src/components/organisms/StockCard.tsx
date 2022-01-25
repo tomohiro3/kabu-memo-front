@@ -3,10 +3,11 @@ import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
-import { memo, useReducer } from 'react';
+import { Dispatch, memo, useReducer, useState } from 'react';
 import { StocksApiResponse } from '../../types/api';
 import Note from '../primitives/Note';
 
@@ -62,6 +63,8 @@ const StockCard = memo(function StockCard(props: StocksApiResponse) {
   const { code, name, group, market, industry33, ...others } = props;
   const [state, dispatch] = useReducer(reducer, others);
 
+  const [isEditMode, setIsEditMode] = useState(false);
+
   return (
     <Card variant="outlined" sx={{ height: '100%', overflowY: 'scroll' }}>
       <Accordion>
@@ -75,6 +78,7 @@ const StockCard = memo(function StockCard(props: StocksApiResponse) {
             <Typography variant="h5" color="text.secondary" gutterBottom>
               {name}({code})
             </Typography>
+            <Button onClick={() => setIsEditMode(!isEditMode)}>{isEditMode ? '完了' : '編集'}</Button>
             <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
               市場：{market}
             </Typography>
@@ -88,36 +92,7 @@ const StockCard = memo(function StockCard(props: StocksApiResponse) {
         </AccordionSummary>
         <AccordionDetails>
           <Box sx={{ padding: '0 16px' }}>
-            <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
-              バリュー・グロース：{state.valueOrGrowth || 'ー'}
-            </Typography>
-            <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
-              価格転嫁：{state.isProductPriceShiftable || 'ー'}
-            </Typography>
-            <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
-              親会社：{state.parentCompany || 'ー'}
-            </Typography>
-            <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
-              系列：{state.groupCompany || 'ー'}
-            </Typography>
-            <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
-              株主：{state.shareHolders.length > 0 ? state.shareHolders.length : 'ー'}
-            </Typography>
-            <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
-              提携会社：{state.partnerCompanies.length > 0 ? state.partnerCompanies.length : 'ー'}
-            </Typography>
-            <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
-              出資先：{state.investingCompanies.length > 0 ? state.investingCompanies.length : 'ー'}
-            </Typography>
-            <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
-              テーマ：{state.themes.length > 0 ? state.themes.length : 'ー'}
-            </Typography>
-            <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
-              プロダクト分離：{state.productCategories.length > 0 ? state.productCategories.length : 'ー'}
-            </Typography>
-            <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
-              プロダクト用途：{state.productUsecases.length > 0 ? state.productUsecases.length : 'ー'}
-            </Typography>
+            {isEditMode ? <EditModeSummary state={state} dispatch={dispatch} /> : <DisplayModeSummary state={state} />}
           </Box>
         </AccordionDetails>
       </Accordion>
@@ -136,5 +111,55 @@ function areEqual(prevProps: any, nextProps: any) {
 }
 
 const AccordionSummary = styled(MuiAccordionSummary)(() => ({ margin: '0 0' }));
+
+const DisplayModeSummary = ({ state }: { state: State }) => {
+  return (
+    <>
+      <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
+        バリュー・グロース：{state.valueOrGrowth || 'ー'}
+      </Typography>
+      <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
+        価格転嫁：{state.isProductPriceShiftable || 'ー'}
+      </Typography>
+      <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
+        親会社：{state.parentCompany || 'ー'}
+      </Typography>
+      <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
+        系列：{state.groupCompany || 'ー'}
+      </Typography>
+      <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
+        株主：{state.shareHolders.length > 0 ? state.shareHolders : 'ー'}
+      </Typography>
+      <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
+        提携会社：{state.partnerCompanies.length > 0 ? state.partnerCompanies : 'ー'}
+      </Typography>
+      <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
+        出資先：{state.investingCompanies.length > 0 ? state.investingCompanies : 'ー'}
+      </Typography>
+      <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
+        テーマ：{state.themes.length > 0 ? state.themes : 'ー'}
+      </Typography>
+      <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
+        プロダクト分離：{state.productCategories.length > 0 ? state.productCategories : 'ー'}
+      </Typography>
+      <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
+        プロダクト用途：{state.productUsecases.length > 0 ? state.productUsecases : 'ー'}
+      </Typography>
+    </>
+  );
+};
+
+const EditModeSummary = ({ state, dispatch }: { state: State; dispatch: Dispatch<any> }) => {
+  return (
+    <>
+      <Note
+        name="テスト"
+        values={state.shareHolders}
+        add={(v: string) => dispatch({ type: 'SET_SHAREHOLDERS', payload: v })}
+        remove={(v: string) => dispatch({ type: 'REMOVE_SHAREHOLDERS', payload: v })}
+      />
+    </>
+  );
+};
 
 export default StockCard;
