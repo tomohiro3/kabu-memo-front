@@ -23,9 +23,13 @@ export default function Note(props: NoteProps) {
       <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
         {name}：
       </Typography>
-      {plusOneValues.map((value, i) => (
-        <NoteInput key={value + i} value={value} {...others} />
-      ))}
+      <Box>
+        <Box display="flex" flexDirection="column">
+          {plusOneValues.map((value, i) => (
+            <NoteInput key={value + i} value={value} {...others} />
+          ))}
+        </Box>
+      </Box>
     </Box>
   );
 }
