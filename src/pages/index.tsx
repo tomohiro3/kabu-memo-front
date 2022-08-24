@@ -1,9 +1,9 @@
 import Grid from '@mui/material/Grid';
 import type { NextPage } from 'next';
-import StockCard from '../components/organisms/StockCard';
+import StockCard from '../components/container/StockCard';
+import { hasDuplicateElement } from '../lib/array';
 import { StocksApiResponse } from '../types/api';
 import { Dict } from '../types/lib';
-import { hasDuplicateElement } from '../utils/lib/array-lib';
 
 type Props = {
   searchFilters: {

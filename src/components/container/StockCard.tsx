@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import { Dispatch, memo, useReducer, useState } from 'react';
 import { StocksApiResponse } from '../../types/api';
-import Note from '../primitives/Note';
+import Note from '../modules/Note';
 
 type State = Omit<StocksApiResponse, 'code' | 'name' | 'market' | 'industry33' | 'group'>;
 

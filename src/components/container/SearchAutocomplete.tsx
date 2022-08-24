@@ -3,6 +3,32 @@ import Autocomplete from '@mui/material/Autocomplete';
 import InputBase from '@mui/material/InputBase';
 import { styled, alpha } from '@mui/material/styles';
 
+// TODO
+// It's very slow to display all of options. Need to virtualize them. Probably with react-window.
+// Make SearchAutocomplete with pure jsx elements and wrap it with styled component, then style it.
+export default function SearchAutocomplete(props: any) {
+  return (
+    <>
+      <Search>
+        <SearchIconWrapper>
+          <SearchIcon />
+        </SearchIconWrapper>
+        <Autocomplete
+          options={props.initiallyFetchedData}
+          getOptionLabel={(option: any) => `${option.name} (${option.code})`}
+          renderInput={(params) => {
+            const { InputProps, InputLabelProps, ...rest } = params;
+            return <StyledInputBase placeholder="銘柄名 (銘柄コード)" {...InputProps} endAdornment={null} {...rest} />;
+          }}
+          onChange={(e, value) =>
+            value ? props.setStockCodeName(value.name, value.code) : props.setStockCodeName('', '')
+          }
+        />
+      </Search>
+    </>
+  );
+}
+
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -43,28 +69,3 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
-
-// TODO
-// It's very slow to display all of options. Need to virtualize them. Probably with react-window.
-export default function SearchAutocomplete(props: any) {
-  return (
-    <>
-      <Search>
-        <SearchIconWrapper>
-          <SearchIcon />
-        </SearchIconWrapper>
-        <Autocomplete
-          options={props.initiallyFetchedData}
-          getOptionLabel={(option: any) => `${option.name} (${option.code})`}
-          renderInput={(params) => {
-            const { InputProps, InputLabelProps, ...rest } = params;
-            return <StyledInputBase placeholder="銘柄名 (銘柄コード)" {...InputProps} endAdornment={null} {...rest} />;
-          }}
-          onChange={(e, value) =>
-            value ? props.setStockCodeName(value.name, value.code) : props.setStockCodeName('', '')
-          }
-        />
-      </Search>
-    </>
-  );
-}
