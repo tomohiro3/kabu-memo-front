@@ -4,6 +4,7 @@ import SummarizeTwoToneIcon from '@mui/icons-material/SummarizeTwoTone';
 import IconButton from '@mui/material/IconButton';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { ReadMore } from '@tomohiro3/bqpdv-ui-lib';
 import Link from 'next/link';
 
 function Layout(props: any) {
@@ -23,9 +24,9 @@ function Layout(props: any) {
           <IconButton aria-label="to-chart" size="large" disableRipple>
             <ShowChartTwoToneIcon fontSize="large" sx={{ p: 0 }} />
           </IconButton>
+          <ReadMore />
         </div>
       </div>
-      {/* {isBigSize ? <Divider orientation="vertical" /> : null} */}
       <main css={main}>{props.children}</main>
     </div>
   );
@@ -47,7 +48,6 @@ const activityBar = (isBig: boolean) =>
       ? `
       min-width: ${activityBarWidthHeight};
       padding: 8px 10px;
-      overflow-y: auto;
       `
       : `
       position: fixed;
@@ -55,7 +55,6 @@ const activityBar = (isBig: boolean) =>
       width: 100%;
       height: ${activityBarWidthHeight};
       padding: 10px 8px;
-      overflow-x: auto;
       z-index: 2;
     `}
   `;
