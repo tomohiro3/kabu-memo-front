@@ -5,12 +5,6 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 
-const Accordion = styled((props: any) => <MuiAccordion disableGutters elevation={0} {...props} />)(() => ({
-  width: '100%',
-}));
-
-const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({ padding: `0 ${theme.spacing(2)}` }));
-
 export default function PlainAccordion(props: any) {
   return (
     <>
@@ -23,3 +17,8 @@ export default function PlainAccordion(props: any) {
     </>
   );
 }
+
+const Accordion = styled((props: any) => <MuiAccordion disableGutters elevation={0} {...props} />)(() => ({
+  width: '100%',
+}));
+const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({ padding: `0 ${theme.spacing(2)}` }));

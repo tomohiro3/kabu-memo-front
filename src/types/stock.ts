@@ -1,7 +1,13 @@
-import { Dict } from './lib';
+// todo
+// getterとかプロパティ変換とかが必要になりそうならtypesではなくmodelsにするかも
+import { Dict, Digit } from './lib';
 
+type StockCode = `${Digit}${Digit}${Digit}${Digit}`;
+
+// todo
+// market, industry33, group, valueOrGrowthのtyping追加する
 export type StocksApiResponse = {
-  code: string;
+  code: StockCode;
   name: string;
   market: string;
   industry33: string;

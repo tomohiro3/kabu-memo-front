@@ -12,7 +12,6 @@ type NoteProps = {
   add: (v: string) => void;
   remove: (v: string) => void;
 };
-
 export default function Note(props: NoteProps) {
   const { name, values, ...others } = props;
   const plusOneValues = Array.from(values);
@@ -35,7 +34,6 @@ export default function Note(props: NoteProps) {
 }
 
 type NoteInputProps = Omit<NoteProps, 'name' | 'values'> & { value: string };
-
 function NoteInput(props: NoteInputProps) {
   const [value, setValue] = useState(props.value);
   return (

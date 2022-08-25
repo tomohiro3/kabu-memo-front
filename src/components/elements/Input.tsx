@@ -1,25 +1,25 @@
 // TODO
-// emotionとReactのバージョンを上げてから、css propsでバグが発生しているので調査
+// emotionとReactのバージョンを上げてから、jest環境でcss propsでバグが発生しているので調査
 import { css } from '@emotion/react';
 import NumberFormat from 'react-number-format';
 
 export type MyInputProps = {
-  variant: 'filled' | 'dotted' | 'outlined';
-  mode: 'text' | 'numeric';
   id?: string;
   inputWidth?: string;
   inputHeight?: string;
   inputColor?: string;
-  prefix?: '¥';
+  className?: string;
   value: string | number;
+  prefix?: '¥';
+  mode: 'text' | 'numeric';
   position: 'start' | 'center' | 'end';
+  variant: 'filled' | 'dotted' | 'outlined';
   disabled?: boolean;
   required?: boolean;
   onChange?: (value: string) => void;
-} & Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'>;
+};
 
 export const MAX_LENGTH = 20;
-
 const baseStyle = css({
   appearance: 'none',
   font: 'inherit',
@@ -30,7 +30,7 @@ const baseStyle = css({
 
 // todo
 // variantに応じたcss/コンポネントに分割する
-export const Input = (props: MyInputProps) => {
+export function Input(props: MyInputProps) {
   const { onChange, className } = props;
   const inputStyle = css`
     ${baseStyle}
@@ -103,13 +103,15 @@ export const Input = (props: MyInputProps) => {
         readOnly={props.disabled}
       />
     );
-};
+}
 
-export const AsideLabelTextFieldInput = (props: MyInputProps & { hidden?: boolean; currency?: string }) => (
-  <Input
-    css={css`
-      ${!props.hidden && !props.currency ? 'margin-left: 10px;' : null}
-    `}
-    {...props}
-  />
-);
+export function AsideLabelTextFieldInput(props: MyInputProps & { hidden?: boolean }) {
+  return (
+    <Input
+      css={css`
+        ${!props.hidden ? 'margin-left: 10px;' : null}
+      `}
+      {...props}
+    />
+  );
+}

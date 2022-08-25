@@ -17,7 +17,7 @@ export default function SearchAutocomplete(props: any) {
           options={props.initiallyFetchedData}
           getOptionLabel={(option: any) => `${option.name} (${option.code})`}
           renderInput={(params) => {
-            const { InputProps, InputLabelProps, ...rest } = params;
+            const { InputProps, ...rest } = params;
             return <StyledInputBase placeholder="銘柄名 (銘柄コード)" {...InputProps} endAdornment={null} {...rest} />;
           }}
           onChange={(e, value) =>
