@@ -1,6 +1,8 @@
 import axiosBase, { AxiosResponse, AxiosPromise, Method } from 'axios';
 import { Dict } from '../types/lib';
 
+axiosBase.defaults.baseURL = 'http://localhost:5000/';
+
 type GetArg = { url?: string; params?: Dict };
 type PatchArg = { url?: string; id?: number; data?: Dict };
 type PostArg = { url?: string; data?: Dict };

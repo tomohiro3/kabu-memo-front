@@ -6,9 +6,6 @@ body {
     Helvetica Neue, sans-serif;
 }
 
-div {
-  overflow-y: scroll;
-}
 div::-webkit-scrollbar {
   display: none;
 }

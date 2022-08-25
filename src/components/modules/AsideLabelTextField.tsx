@@ -1,17 +1,18 @@
 // TODO
-// emotionとReactのバージョンを上げてから、css propsでバグが発生しているので調査
+// emotionとReactのバージョンを上げてから、jest環境でcss propsでバグが発生しているので調査
 import { css } from '@emotion/react';
+import { CSSProperties } from 'react';
 import { AsideLabelTextFieldInput, MyInputProps } from '../elements/Input';
 
 type Props = {
   labelText: string | JSX.Element;
   labelSize?: 's';
   labelVariant?: 'outlined';
+  style?: CSSProperties;
   hidden?: boolean;
-  currency?: string;
 } & MyInputProps;
 
-export const AsideLabelTextField = (props: Props) => {
+export function AsideLabelTextField(props: Props) {
   const { style, className, ...others } = props;
   return (
     <div
@@ -36,21 +37,6 @@ export const AsideLabelTextField = (props: Props) => {
       >
         {props.labelText}
       </label>
-      {props.currency ? (
-        <span
-          data-testid={props.labelText}
-          css={css`
-            background-color: #e0e0e0;
-            color: #8b8b8b;
-            fontsize: 1rem;
-            height: 100%;
-            ${props.hidden ? 'margin-right: 10px;' : 'margin: 0 10px;'}
-            padding: 0 5px;
-          `}
-        >
-          {props.currency}
-        </span>
-      ) : null}
       {/* 
         emotionは親コンポネントがcss propsを受け取るとき、className経由で子コンポネントのcss propsを上書き・追記する。
         AsideLabelTextFieldInputは既にInputのcssをカスタマイズしたコンポネントであり、css propsに変更を加えたくないので
@@ -59,4 +45,4 @@ export const AsideLabelTextField = (props: Props) => {
       <AsideLabelTextFieldInput {...others} />
     </div>
   );
-};
+}
