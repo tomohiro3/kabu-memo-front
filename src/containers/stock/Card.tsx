@@ -13,6 +13,8 @@ import { StocksApiResponse } from '../../types/stock';
 
 type State = Omit<StocksApiResponse, 'code' | 'name' | 'market' | 'industry33' | 'group'>;
 
+// todo
+// 下記をtype narrowingした一つの関数にまとめる
 function reducer(state: State, action: any) {
   switch (action.type) {
     case 'SET_VALUEORGROWTH':
@@ -113,6 +115,8 @@ function areEqual(prevProps: any, nextProps: any) {
 
 const AccordionSummary = styled(MuiAccordionSummary)(() => ({ margin: '0 0' }));
 
+// todo
+// 配列文字列をjoinして描画する
 const DisplayModeSummary = ({ state }: { state: State }) => {
   return (
     <>
@@ -129,22 +133,22 @@ const DisplayModeSummary = ({ state }: { state: State }) => {
         系列：{state.groupCompany || 'ー'}
       </Typography>
       <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
-        株主：{state.shareHolders.length > 0 ? state.shareHolders : 'ー'}
+        株主：{state.shareHolders.length ? state.shareHolders : 'ー'}
       </Typography>
       <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
-        提携会社：{state.partnerCompanies.length > 0 ? state.partnerCompanies : 'ー'}
+        提携会社：{state.partnerCompanies.length ? state.partnerCompanies : 'ー'}
       </Typography>
       <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
-        出資先：{state.investingCompanies.length > 0 ? state.investingCompanies : 'ー'}
+        出資先：{state.investingCompanies.length ? state.investingCompanies : 'ー'}
       </Typography>
       <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
-        テーマ：{state.themes.length > 0 ? state.themes : 'ー'}
+        テーマ：{state.themes.length ? state.themes : 'ー'}
       </Typography>
       <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
-        プロダクト分離：{state.productCategories.length > 0 ? state.productCategories : 'ー'}
+        プロダクト分離：{state.productCategories.length ? state.productCategories : 'ー'}
       </Typography>
       <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
-        プロダクト用途：{state.productUsecases.length > 0 ? state.productUsecases : 'ー'}
+        プロダクト用途：{state.productUsecases.length ? state.productUsecases : 'ー'}
       </Typography>
     </>
   );
