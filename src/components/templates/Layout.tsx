@@ -5,35 +5,53 @@ import SummarizeTwoToneIcon from '@mui/icons-material/SummarizeTwoTone';
 import IconButton from '@mui/material/IconButton';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import Head from 'next/head';
 // import { ReadMore } from '@tomohiro3/bqpdv-ui-lib';
 import Link from 'next/link';
 
+// todo
+// seoコンポネント作る
 function Layout(props: any) {
   const theme = useTheme();
   const isBigSize = useMediaQuery(theme.breakpoints.up('sm'));
 
   return (
-    <div css={container}>
-      <div css={activityBar(isBigSize)}>
-        <div css={links(isBigSize)}>
-          <Link href="/">
-            <IconButton aria-label="Home" disableRipple>
-              <HomeIcon fontSize="large" sx={{ p: 0 }} />
+    <>
+      <Head>
+        <title>KABUMEMO</title>
+        <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+        <meta name="robots" content="index,follow" />
+        <meta name="googlebot" content="index,follow" />
+        <meta name="description" content="default description" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta property="og:title" content="default title" />
+        <meta property="og:description" content="og default description" />
+        <meta property="og:url" content="og default url" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="og default site name" />
+      </Head>
+      <div css={container}>
+        <div css={activityBar(isBigSize)}>
+          <div css={links(isBigSize)}>
+            <Link href="/">
+              <IconButton aria-label="Home" disableRipple>
+                <HomeIcon fontSize="large" sx={{ p: 0 }} />
+              </IconButton>
+            </Link>
+            <Link href="/stock">
+              <IconButton aria-label="Stock Page" disableRipple>
+                <SummarizeTwoToneIcon fontSize="large" sx={{ p: 0 }} />
+              </IconButton>
+            </Link>
+            <IconButton aria-label="Chart Page" size="large" disableRipple>
+              <ShowChartTwoToneIcon fontSize="large" sx={{ p: 0 }} />
             </IconButton>
-          </Link>
-          <Link href="/stock">
-            <IconButton aria-label="Stock Page" disableRipple>
-              <SummarizeTwoToneIcon fontSize="large" sx={{ p: 0 }} />
-            </IconButton>
-          </Link>
-          <IconButton aria-label="Chart Page" size="large" disableRipple>
-            <ShowChartTwoToneIcon fontSize="large" sx={{ p: 0 }} />
-          </IconButton>
-          {/* <ReadMore /> */}
+            {/* <ReadMore /> */}
+          </div>
         </div>
+        <main css={main(isBigSize)}>{props.children}</main>
       </div>
-      <main css={main(isBigSize)}>{props.children}</main>
-    </div>
+    </>
   );
 }
 
