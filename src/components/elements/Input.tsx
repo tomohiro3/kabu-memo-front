@@ -1,8 +1,10 @@
 // TODO
 // emotionとReactのバージョンを上げてから、jest環境でcss propsでバグが発生しているので調査
 import { css } from '@emotion/react';
+import { forwardRef } from 'react';
 import NumberFormat from 'react-number-format';
 
+type Ref = HTMLInputElement;
 export type MyInputProps = {
   id?: string;
   inputWidth?: string;
@@ -30,7 +32,7 @@ const baseStyle = css({
 
 // todo
 // variantに応じたcss/コンポネントに分割する
-export function Input(props: MyInputProps) {
+export const Input = forwardRef<Ref, MyInputProps>((props, ref) => {
   const { onChange, className } = props;
   const inputStyle = css`
     ${baseStyle}
@@ -83,27 +85,26 @@ export function Input(props: MyInputProps) {
         readOnly={props.disabled}
       />
     );
-  } else
+  } else {
     return (
       <input
+        ref={ref}
         className={className}
         css={inputStyle}
         type="text"
         id={props.id}
         value={props.value}
-        onChange={
-          onChange
-            ? (event: React.ChangeEvent<HTMLInputElement>) => {
-                onChange(event.target.value);
-              }
-            : undefined
-        }
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          onChange && onChange(event.target.value);
+        }}
         disabled={props.disabled}
         required={props.required}
         readOnly={props.disabled}
       />
     );
-}
+  }
+});
+Input.displayName = 'Input';
 
 export function AsideLabelTextFieldInput(props: MyInputProps & { hidden?: boolean }) {
   return (
