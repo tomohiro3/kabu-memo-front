@@ -1,5 +1,11 @@
 // TODO
 // emotionとReactのバージョンを上げてから、jest環境でcss propsでバグが発生しているので調査
+
+// MEMO
+// AsideLabelTextFieldコンポネント有り気で作ったInputコンポネントのためpropsが絞られている
+// 本来のinputタグとしてのコンポネントが必要になったらComponentPropsWithoutRefでpropsの型定義したコンポネントを作る？
+// （そうなるともはや作らなくて良い気もする）
+
 import { css } from '@emotion/react';
 import { forwardRef } from 'react';
 import NumberFormat from 'react-number-format';
