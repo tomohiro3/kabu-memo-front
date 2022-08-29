@@ -1,4 +1,4 @@
 export const BREAK_POINT = {
-  medium: 660,
-  large: 1020,
+  medium: 600,
+  large: 1200,
 };
