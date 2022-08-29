@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import styles from '../../styles/utils.module.scss';
+import styles from '../../styles/skeleton.module.scss';
 
 export default function SkeletonCard() {
   return (
