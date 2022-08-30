@@ -1,6 +1,9 @@
 import { css } from '@emotion/react';
 import styles from '../../styles/skeleton.module.scss';
 
+// TODO
+// スケルトン部分の動的描画
+// cssをまとめる
 export default function SkeletonCard() {
   return (
     <div

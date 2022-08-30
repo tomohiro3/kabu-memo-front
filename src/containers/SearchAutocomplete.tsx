@@ -6,6 +6,7 @@ import { styled, alpha } from '@mui/material/styles';
 // TODO
 // It's very slow to display all of options. Need to virtualize them. Probably with react-window.
 // Make SearchAutocomplete with pure jsx elements and wrap it with styled component, then style it.
+// MaterialUIを剥がす
 export default function SearchAutocomplete(props: any) {
   return (
     <>

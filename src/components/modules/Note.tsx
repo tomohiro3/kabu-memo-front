@@ -6,6 +6,9 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 
+// TODO
+// MaterialUIを剥がす
+
 type NoteProps = {
   name: string;
   values: string[];

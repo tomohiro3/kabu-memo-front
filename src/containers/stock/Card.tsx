@@ -1,12 +1,7 @@
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Accordion from '@mui/material/Accordion';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import BaseCard from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
-import { styled } from '@mui/material/styles';
 import { Dispatch, memo, useReducer, useState } from 'react';
 import Note from '../../components/modules/Note';
 import { StocksApiResponse } from '../../types/stock';
@@ -59,24 +54,17 @@ function reducer(state: State, action: any) {
 }
 
 // やること
-//上記stateをCardに渡す
-// 表示モードと編集モードで別コンポネントを作る。（AcoordionDetails以下の部分）
+// 上記stateをCardに渡す
+// 表示モードと編集モードで別コンポネントを作る。
 const Card = memo(function StockCard({ stock }: { stock: StocksApiResponse }) {
   const { code, name, group, market, industry33, ...others } = stock;
   const [state, dispatch] = useReducer(reducer, others);
 
   const [isEditMode, setIsEditMode] = useState(false);
 
-  // Fix me Accordion and style is broken
+  // Fix me style is broken
   return (
     <BaseCard variant="outlined" sx={{ width: '320px', height: '200px', overflowY: 'scroll' }}>
-      {/* <Accordion>
-        <AccordionSummary
-          sx={{ height: '150px' }}
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        > */}
       <Box sx={{ padding: '0 16px' }}>
         <Typography variant="h5" color="text.secondary" gutterBottom>
           {name}({code})
@@ -92,13 +80,9 @@ const Card = memo(function StockCard({ stock }: { stock: StocksApiResponse }) {
           33業種：{industry33}
         </Typography>
       </Box>
-      {/* </AccordionSummary> */}
-      {/* <AccordionDetails> */}
       <Box sx={{ padding: '0 16px' }}>
         {isEditMode ? <EditModeSummary state={state} dispatch={dispatch} /> : <DisplayModeSummary state={state} />}
       </Box>
-      {/* </AccordionDetails> */}
-      {/* </Accordion> */}
     </BaseCard>
   );
 }, areEqual);
@@ -112,8 +96,6 @@ function areEqual(prevProps: any, nextProps: any) {
     prevProps.isProductPriceShiftable === nextProps.isProductPriceShiftable
   );
 }
-
-const AccordionSummary = styled(MuiAccordionSummary)(() => ({ margin: '0 0' }));
 
 // todo
 // 配列文字列をjoinして描画する
