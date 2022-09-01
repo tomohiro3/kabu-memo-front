@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import { Suspense } from 'react';
-import SkeletonCard from '../../components/modules/SkeletonCard';
+import SkeletonCard from '../../components/organisims/SkeletonCard';
 import StockInteractor from '../../interactors/stock/interactor';
 import { StocksApiResponse } from '../../types/stock';
 import Card from './Card';
