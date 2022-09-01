@@ -2,7 +2,7 @@
 // emotionとReactのバージョンを上げてから、jest環境でcss propsでバグが発生しているので調査
 import { css } from '@emotion/react';
 import { CSSProperties } from 'react';
-import { AsideLabelTextFieldInput, MyInputProps } from '../elements/Input';
+import { AsideLabelTextFieldInput, MyInputProps } from './Input';
 
 type Props = {
   labelText: string | JSX.Element;

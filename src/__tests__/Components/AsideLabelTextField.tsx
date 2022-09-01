@@ -4,7 +4,7 @@
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
-import { AsideLabelTextField } from '../../components/modules/AsideLabelTextField';
+import { AsideLabelTextField } from '../../components/__old__/AsideLabelTextField';
 
 const initialState = '';
 const prefix = '¥';
