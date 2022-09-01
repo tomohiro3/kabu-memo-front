@@ -23,8 +23,6 @@ function Layout(props: any) {
         <meta property="og:site_name" content="og default site name" />
       </Head>
       <div css={container}>
-        {/* divで囲ってレイアウトしやすくした方が良い気がするが、MenuBarでposition:fixedを持っているため不可
-        Layoutでpositionも決めるべき？MenuBarの表示位置を切り替える機能を作るとなったらそうする？ */}
         <div>
           <MenuBar />
         </div>
