@@ -15,6 +15,13 @@ a {
   text-decoration: none;
 }
 
+ul {
+  list-style-type: none;
+  margin-block-start: unset;
+  margin-block-end: unset;
+  padding-inline-start: unset;
+}
+
 * {
   box-sizing: border-box;
 }

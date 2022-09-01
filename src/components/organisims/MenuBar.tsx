@@ -44,17 +44,13 @@ const container = css`
     display: flex;
     justify-content: center;
     flex-direction: column;
-    list-style-type: none;
-    margin-block-start: unset;
-    margin-block-end: unset;
-    padding-inline-start: unset;
 
     & > li {
       text-align: center;
-    }
 
-    & > li:not(:last-of-type) {
-      margin-bottom: 10px;
+      &:not(:last-of-type) {
+        margin-bottom: 10px;
+      }
     }
   }
 

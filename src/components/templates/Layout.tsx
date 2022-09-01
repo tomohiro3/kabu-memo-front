@@ -39,11 +39,12 @@ export default Layout;
 // todo
 // メニューバーの左右上下表示位置を切り替えられるようにする？
 const menuBarWidth = '60px';
+const menuBarHeight = '50px';
 const container = css`
   & > div {
     height: 100%;
     position: fixed;
-    width: 60px;
+    width: ${menuBarWidth};
     z-index: 2;
   }
 
@@ -57,12 +58,13 @@ const container = css`
     & > div {
       bottom: 0;
       width: 100%;
-      height: 50px;
+      height: ${menuBarHeight};
     }
 
     & > main {
-      height: calc(100% - 50px});
-      margin-bottom: 50px;
+      width: 100%;
+      height: calc(100% - ${menuBarHeight});
+      margin-bottom: ${menuBarHeight};
       margin-left: unset;
     }
   }
