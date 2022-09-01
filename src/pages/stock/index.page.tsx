@@ -1,9 +1,9 @@
 import { css } from '@emotion/react';
 import { Suspense } from 'react';
 import SkeletonCard from '../../components/modules/SkeletonCard';
-import Card from '../../containers/stock/Card';
 import StockInteractor from '../../interactors/stock/interactor';
 import { StocksApiResponse } from '../../types/stock';
+import Card from './Card';
 
 function Stock({ stocks }: { stocks: StocksApiResponse[] }) {
   return (

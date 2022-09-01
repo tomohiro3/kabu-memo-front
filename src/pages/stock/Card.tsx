@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import BaseCard from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
 import { Dispatch, memo, useReducer, useState } from 'react';
-import Note from '../../components/modules/Note';
+import Note from '../../components/organisims/Note';
 import { StocksApiResponse } from '../../types/stock';
 
 type State = Omit<StocksApiResponse, 'code' | 'name' | 'market' | 'industry33' | 'group'>;

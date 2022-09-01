@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import Head from 'next/head';
 import { BREAK_POINT } from '../../constants/style'; // themingする
-import MenuBar from '../modules/MenuBar';
+import MenuBar from '../organisims/MenuBar';
 // import { ReadMore } from '@tomohiro3/bqpdv-ui-lib';
 
 // todo
