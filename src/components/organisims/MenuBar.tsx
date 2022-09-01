@@ -34,22 +34,11 @@ export default function MenuBar({ className }: { className?: string }) {
   );
 }
 
-// memo
-// コンポネントそれ自体にposition: fixedを持たせるのは良くない気もするが
-// メニューバーは表示箇所が左右か（上）下と限定的なため自身でpositionを管理することにする？
 const container = css`
   background-color: #eee;
   height: 100%;
   padding: 8px 0;
-  position: fixed;
-
-  @media (max-width: ${BREAK_POINT.medium}px) {
-    width: 100%;
-    bottom: 0;
-    height: 50px;
-    padding: 0 8px;
-    z-index: 2;
-  }
+  width: 100%;
 
   & > ul {
     display: flex;
@@ -57,23 +46,28 @@ const container = css`
     flex-direction: column;
     list-style-type: none;
     margin-block-start: unset;
+    margin-block-end: unset;
     padding-inline-start: unset;
-
-    &:not(:last-child): {
-      margin-bottom: 10px;
-    }
 
     & > li {
       text-align: center;
     }
 
-    @media (max-width: ${BREAK_POINT.medium}px) {
+    & > li:not(:last-of-type) {
+      margin-bottom: 10px;
+    }
+  }
+
+  @media (max-width: ${BREAK_POINT.medium}px) {
+    padding: 0 8px;
+
+    & > ul {
       align-items: base;
-      height: 100%;
       flex-direction: row;
       justify-content: space-between;
 
-      & :not(:last-child): {
+      & > li:not(:last-of-type) {
+        margin-bottom: unset;
         margin-right: 8px;
       }
     }

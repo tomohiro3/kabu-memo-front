@@ -25,7 +25,9 @@ function Layout(props: any) {
       <div css={container}>
         {/* divで囲ってレイアウトしやすくした方が良い気がするが、MenuBarでposition:fixedを持っているため不可
         Layoutでpositionも決めるべき？MenuBarの表示位置を切り替える機能を作るとなったらそうする？ */}
-        <MenuBar />
+        <div>
+          <MenuBar />
+        </div>
         <main>{props.children}</main>
       </div>
     </>
@@ -35,10 +37,16 @@ function Layout(props: any) {
 export default Layout;
 
 // todo
-// モバイル時のMenuBarの高さをべたで書いてしまっている
-// LayoutからMenuBarにheightを渡すようにする？
+// メニューバーの左右上下表示位置を切り替えられるようにする？
 const menuBarWidth = '60px';
 const container = css`
+  & > div {
+    height: 100%;
+    position: fixed;
+    width: 60px;
+    z-index: 2;
+  }
+
   & > main {
     width: calc(100% - ${menuBarWidth});
     margin-left: ${menuBarWidth};
@@ -46,6 +54,12 @@ const container = css`
   }
 
   @media (max-width: ${BREAK_POINT.medium}px) {
+    & > div {
+      bottom: 0;
+      width: 100%;
+      height: 50px;
+    }
+
     & > main {
       height: calc(100% - 50px});
       margin-bottom: 50px;
