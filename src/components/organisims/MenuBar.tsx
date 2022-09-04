@@ -6,9 +6,9 @@ import IconButton from '@mui/material/IconButton';
 import Link from 'next/link';
 import { BREAK_POINT } from '../../constants/style';
 
-export default function MenuBar({ className }: { className?: string }) {
+export default function MenuBar() {
   return (
-    <div className={className} css={container}>
+    <div css={container}>
       <ul aria-label="Page switcher">
         <li>
           <Link href="/">
