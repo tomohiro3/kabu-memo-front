@@ -69,11 +69,11 @@ export class MyHttpRequester<T> implements IMyHttpRequester<T> {
     } catch (err: any) {
       if (this.axios.isCancel(err)) {
         console.log(err.message);
+        return { data: undefined, error: undefined };
       } else {
         const msg = this.isError(err);
-        if (msg) return { data: undefined, error: msg };
+        return { data: undefined, error: msg };
       }
-      return { data: undefined, error: undefined };
     }
   }
 
