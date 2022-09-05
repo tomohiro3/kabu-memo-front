@@ -6,17 +6,17 @@ axiosBase.defaults.baseURL = 'http://localhost:5000/';
 type GetArg = { url?: string; params?: Dict };
 type PatchArg = { url?: string; id?: number; data?: Dict };
 type PostArg = { url?: string; data?: Dict };
-type FmHttpResponse<Data = any, Error = any> = {
+type MyHttpResponse<Data = any, Error = any> = {
   data: Data | undefined;
   error: Error | undefined;
 };
 export interface IMyHttpRequester<T> {
-  get: <U = T, S = string>(arg: GetArg) => Promise<FmHttpResponse<U, S>>;
-  patch: <U = T, S = string>(arg: PatchArg) => Promise<FmHttpResponse<U, S>>;
-  post: <U = T, S = string>(arg: PostArg) => Promise<FmHttpResponse<U, S>>;
-  put: <U = T, S = string>({ params }: Dict) => Promise<FmHttpResponse<U, S>>;
-  delete: <U = T, S = string>(id: number) => Promise<FmHttpResponse<U, S>>;
-  fetchAll: <U extends any[], S = string>(args: GetArg[]) => Promise<FmHttpResponse<U, S>>;
+  get: <U = T, S = string>(arg: GetArg) => Promise<MyHttpResponse<U, S>>;
+  patch: <U = T, S = string>(arg: PatchArg) => Promise<MyHttpResponse<U, S>>;
+  post: <U = T, S = string>(arg: PostArg) => Promise<MyHttpResponse<U, S>>;
+  put: <U = T, S = string>({ params }: Dict) => Promise<MyHttpResponse<U, S>>;
+  delete: <U = T, S = string>(id: number) => Promise<MyHttpResponse<U, S>>;
+  fetchAll: <U extends any[], S = string>(args: GetArg[]) => Promise<MyHttpResponse<U, S>>;
   abort: (message?: string) => void;
 }
 
