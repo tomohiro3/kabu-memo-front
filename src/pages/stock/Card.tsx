@@ -53,7 +53,7 @@ function reducer(state: State, action: any) {
   }
 }
 
-// やること
+// todo
 // 上記stateをCardに渡す
 // 表示モードと編集モードで別コンポネントを作る。
 const Card = memo(function StockCard({ stock }: { stock: StocksApiResponse }) {

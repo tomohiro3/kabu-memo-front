@@ -58,7 +58,6 @@ const container = css`
     padding: 0 8px;
 
     & > ul {
-      align-items: base;
       flex-direction: row;
       justify-content: space-between;
 
